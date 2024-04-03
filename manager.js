@@ -1,4 +1,4 @@
-import Employee from './EmployeeApp';
+const Employee = require('./EmployeeApp');
 
 class Manager extends Employee {
     #bonus;
@@ -15,6 +15,10 @@ class Manager extends Employee {
     getSalary() {
         // Calculate total salary including bonus
         return super.getSalary() + this.#bonus;
+    }
+
+    calculatePaycheck() {
+        return this.getSalary();
     }
 }
 
