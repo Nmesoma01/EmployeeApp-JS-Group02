@@ -11,7 +11,7 @@ class Employee {
         this.#salary = salary;
     }
 
-    getId() {
+    get id() {
         return this.#id;
     }
 
