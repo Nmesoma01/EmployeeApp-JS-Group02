@@ -8,17 +8,17 @@ class Manager extends Employee {
         this.#bonus = bonus;
     }
 
-    getBonus() {
+    get bonus() {
         return this.#bonus;
     }
 
-    getSalary() {
+    get salary() {
         // Calculate total salary including bonus
         return super.getSalary() + this.#bonus;
-    }
+    }    
 
     calculatePaycheck() {
-        return this.getSalary();
+        return this.salary;
     }
 }
 

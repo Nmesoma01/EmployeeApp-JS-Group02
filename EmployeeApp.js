@@ -11,19 +11,19 @@ class Employee {
         this.#salary = salary;
     }
 
-    getId() {
+    get id() {
         return this.#id;
     }
 
-    getName() {
+    get name() {
         return this.#name;
     }
 
-    getDepartment() {
+    get department() {
         return this.#department;
     }
 
-    getSalary() {
+    get salary() {
         return this.#salary;
     }
 
