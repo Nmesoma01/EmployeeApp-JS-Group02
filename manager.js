@@ -14,12 +14,12 @@ class Manager extends Employee {
 
     get salary() {
         // Calculate total salary including bonus
-        return super.getSalary() + this.#bonus;
-    }    
+        return super.salary + this.#bonus;
+    }         
 
     calculatePaycheck() {
         return this.salary;
-    }
+    } 
 }
 
 module.exports = Manager;
