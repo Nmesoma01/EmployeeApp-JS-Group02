@@ -26,10 +26,6 @@ class Employee {
     get salary() {
         return this.#salary;
     }
-
-    calculatePaycheck() {
-        return this.#salary;
-    }
 }
 
 module.exports = Employee;
