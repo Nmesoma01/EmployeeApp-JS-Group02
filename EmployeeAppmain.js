@@ -1,4 +1,4 @@
-const Employee = require('./EmployeeApp');
+import Employee from './Employee';
 
 const employee = new Employee(1, 'John Doe', 'Engineering', 5000);
 
