@@ -1,4 +1,4 @@
-const Manager = require('./manager');
+import Manager from './manager';
 
 // Create a Manager instance
 const manager = new Manager(1, 'John Doe', 'Sales', 5000, 1000);
