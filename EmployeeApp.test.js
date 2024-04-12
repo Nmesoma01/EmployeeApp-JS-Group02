@@ -1,12 +1,13 @@
+/* eslint-disable no-console */
 import { prompt } from './prompt';
-import Employee from './Employee';
 import { addEmployee, displayEmployeeDetails } from './EmployeeApp';
+import Employee from './src/models/Employee';
 
 jest.mock('./prompt', () => ({
   prompt: jest.fn(),
 }));
 
-jest.mock('./Employee');
+jest.mock('./src/models/Employee');
 
 describe('addEmployee', () => {
   it("should add an employee to the employee's list", () => {
@@ -15,7 +16,12 @@ describe('addEmployee', () => {
     prompt.mockReturnValueOnce('Engineering');
     prompt.mockReturnValueOnce('5000');
     addEmployee();
-    expect(Employee).toHaveBeenCalledWith('123', 'John Doe', 'Engineering', '5000');
+    expect(Employee).toHaveBeenCalledWith({
+      id: '123',
+      name: 'John Doe',
+      department: 'Engineering',
+      salary: 5000,
+    });
     expect(prompt).toHaveBeenCalledTimes(4);
     expect(1).toBe(1);
   });

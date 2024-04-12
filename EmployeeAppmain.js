@@ -1,4 +1,5 @@
-import Employee from './Employee';
+/* eslint-disable no-console */
+import Employee from './src/models/Employee';
 
 const employee = new Employee(1, 'John Doe', 'Engineering', 5000);
 

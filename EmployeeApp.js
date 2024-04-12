@@ -1,5 +1,6 @@
-import Employee from './Employee';
+/* eslint-disable no-console */
 import { prompt } from './prompt';
+import Employee from './src/models/Employee';
 
 const employees = [];
 
@@ -7,9 +8,11 @@ export function addEmployee() {
   const id = prompt('Enter employee ID: ');
   const name = prompt('Enter employee name: ');
   const department = prompt('Enter employee department: ');
-  const salary = prompt('Enter employee salary: ');
+  const salary = parseInt(prompt('Enter employee salary: '), 10);
 
-  const employee = new Employee(id, name, department, salary);
+  const employee = new Employee({
+    id, name, department, salary,
+  });
   employees.push(employee);
 }
 

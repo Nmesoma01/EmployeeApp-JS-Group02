@@ -1,4 +1,5 @@
-import Manager from './manager';
+/* eslint-disable no-console */
+import Manager from './src/models/manager';
 
 // Create a Manager instance
 const manager = new Manager(1, 'John Doe', 'Sales', 5000, 1000);
