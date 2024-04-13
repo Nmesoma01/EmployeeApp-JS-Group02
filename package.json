@@ -17,8 +17,10 @@
     "eslint-plugin-import": "^2.29.1",
     "express": "^4.19.2",
     "jest": "^29.7.0",
+    "joi": "^17.12.3",
     "prompt-sync": "^4.2.0"
   },
+  "type": "module",
   "devDependencies": {
     "eslint-plugin-jest": "^28.2.0"
   },
