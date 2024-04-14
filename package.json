@@ -20,7 +20,6 @@
     "joi": "^17.12.3",
     "prompt-sync": "^4.2.0"
   },
-  "type": "module",
   "devDependencies": {
     "eslint-plugin-jest": "^28.2.0"
   },
