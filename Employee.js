@@ -1,4 +1,4 @@
-export default class Employee {
+class Employee {
   #id;
 
   #name;
@@ -30,3 +30,5 @@ export default class Employee {
     return this.#salary;
   }
 }
+
+export default Employee;
