@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import express from 'express';
 import Employee from './Employee';
+import { set, get } from './cache'; // Import the cache functions
 
 const app = express();
 const port = 8080;
@@ -22,11 +23,22 @@ const employees = [
   new Employee(3, 'Tom Brown', 'Finance', 5500),
 ];
 
-app.get('/employees', (req, res) => {
-  res.json(employees);
+app.get('/employees', async (req, res) => {
+  try {
+    const cachedEmployees = await get('employees'); // Check cache first
+    if (cachedEmployees) {
+      res.json(cachedEmployees);
+    } else {
+      // If data not in cache, fetch from database and set in cache
+      set('employees', employees);
+      res.json(employees);
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
-app.get('/employees/:id', (req, res) => {
+app.get('/employees/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const employee = employees.find((emp) => emp.id === id);
   if (!employee) {
@@ -90,63 +102,3 @@ app.delete('/employees/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-/* const express = require('express');
-
-const app = express();
-const port = 8080;
-
-app.use(express.json());
-
-const users = [
-  { id: 1, name: 'John Doe', age: 30 },
-  { id: 2, name: 'Jane Smith', age: 25 },
-  { id: 3, name: 'Tom Brown', age: 35 },
-];
-
-app.get('/users', (req, res) => {
-  res.json(users);
-});
-
-app.get('/users/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const user = users.find((user) => user.id === id);
-  if (!user) {
-    res.status(404).json({ error: 'User not found' });
-  } else {
-    res.json(user);
-  }
-});
-
-app.post('/users', (req, res) => {
-  const newUser = req.body;
-  users.push(newUser);
-  res.status(201).json(newUser);
-});
-
-app.put('/users/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const updatedUser = req.body;
-  const index = users.findIndex((user) => user.id === id);
-  if (index !== -1) {
-    users[index] = { ...users[index], ...updatedUser };
-    res.json(users[index]);
-  } else {
-    res.status(404).json({ error: 'User not found' });
-  }
-});
-
-app.delete('/users/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const index = users.findIndex((user) => user.id === id);
-  if (index !== -1) {
-    const deletedUser = users.splice(index, 1);
-    res.json(deletedUser);
-  } else {
-    res.status(404).json({ error: 'User not found' });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); */
