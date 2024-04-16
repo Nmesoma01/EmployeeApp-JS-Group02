@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { v4 as uuidv4 } from 'uuid';
 import Employee from '../models/Employee';
 import EmployeeTable from '../persistance/Employee';
 
@@ -10,7 +11,8 @@ export default class EmployeeService {
   }
 
   async create(employeeData) {
-    const newEmployee = new Employee(employeeData);
+    const newEmployeeData = { ...employeeData, id: uuidv4() };
+    const newEmployee = new Employee(newEmployeeData);
     await this.employeeTable.create(newEmployee);
     return newEmployee;
   }

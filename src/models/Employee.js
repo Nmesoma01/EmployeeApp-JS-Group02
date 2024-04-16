@@ -97,4 +97,13 @@ export default class Employee {
       this.salary = salary;
     }
   }
+
+  getJson() {
+    return {
+      id: this.id,
+      name: this.name,
+      department: this.department,
+      salary: this.salary,
+    };
+  }
 }

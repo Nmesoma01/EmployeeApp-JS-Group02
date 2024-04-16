@@ -1,4 +1,4 @@
-import Manager from './src/models/manager';
+import Manager from '../src/models/manager';
 
 describe('manager class', () => {
   it('calculatePaycheck method returns correct total paycheck amount', () => {

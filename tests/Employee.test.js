@@ -1,4 +1,4 @@
-import Employee from './src/models/Employee';
+import Employee from '../src/models/Employee';
 
 describe('employee Class', () => {
   it('constructor sets properties correctly', () => {
