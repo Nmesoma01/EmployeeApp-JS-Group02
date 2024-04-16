@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const express = require('express');
+import Joi from 'joi';
+import express from 'express';
 import Employee from './Employee';
 import { set, get } from './cache'; // Import the cache functions
 
