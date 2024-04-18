@@ -4,7 +4,9 @@ export default class Manager extends Employee {
   #bonus;
 
   constructor(id, name, department, salary, bonus) {
-    super(id, name, department, salary);
+    super({
+      id, name, department, salary,
+    });
     this.#bonus = bonus;
   }
 

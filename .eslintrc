@@ -23,7 +23,7 @@
       "linebreak-style":0,
       "max-classes-per-file": "off",
       "no-underscore-dangle": "off",
-      "no-console": "off",
+      // "no-console": "off",
       "no-shadow": "off",
       "jest/require-hook": "off",
       "jest/prefer-expect-assertions": "off",
