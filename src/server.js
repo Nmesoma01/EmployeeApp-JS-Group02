@@ -1,7 +1,11 @@
 import Joi from 'joi';
 import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
 import EmployeeService from './services/Employee';
 import db from './persistance/Database';
+
+const asyncFs = fs.promises;
 
 const app = express();
 const port = 8080;
@@ -9,7 +13,7 @@ const port = 8080;
 db.connect();
 
 const employeeService = new EmployeeService();
-
+app.use(cors());
 app.use(express.json());
 
 const createEmployeeSchema = Joi.object({
@@ -94,6 +98,54 @@ app.delete('/employees/:id', async (req, res) => {
   } catch (error) {
     if (error.message === 'Unable to delete the employee') {
       return res.status(404).json({ error: error.message });
+    }
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/employees/:id/report', async (req, res) => {
+  const { id } = req.params;
+  const { report } = req.body;
+  if (!id) {
+    return res.status(400).json({ error: 'Id parameter is required' });
+  }
+  try {
+    const employee = await employeeService.getById(id);
+    if (!employee) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+    const parent = '/tmp/reports';
+    await asyncFs.mkdir(parent, { recursive: true });
+    const path = `/tmp/reports/${id}.md`;
+    await asyncFs.writeFile(path, report, 'utf-8');
+    return res.status(201).json({ report });
+  } catch (error) {
+    if (error.message === 'Employee not found') {
+      return res.status(404).json({ error: error.message });
+    }
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/employees/:id/report', async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: 'Id parameter is required' });
+  }
+  try {
+    const employee = await employeeService.getById(id);
+    if (!employee) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+    const path = `/tmp/reports/${id}.md`;
+    const report = await asyncFs.readFile(path, 'utf-8');
+    return res.status(200).json({ report });
+  } catch (error) {
+    if (error.message === 'Employee not found') {
+      return res.status(404).json({ error: error.message });
+    }
+    if (error.code === 'ENOENT') {
+      return res.status(200).json({ report: '' });
     }
     return res.status(500).json({ error: 'Internal server error' });
   }
