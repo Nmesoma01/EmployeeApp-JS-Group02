@@ -36,3 +36,10 @@ export async function del(key) {
   const delAsync = promisify(client.del).bind(client);
   return delAsync(key);
 }
+
+export async function delAll(pattern) {
+  const keysAsync = promisify(client.keys).bind(client);
+  const delAsync = promisify(client.del).bind(client);
+  const keys = await keysAsync(pattern);
+  return Promise.all(keys.map((key) => delAsync(key)));
+}

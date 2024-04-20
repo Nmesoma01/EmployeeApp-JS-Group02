@@ -2,7 +2,7 @@
 import db from './Database';
 import Employee from '../models/Employee';
 import {
-  del, get, getAll, set,
+  del, delAll, get, getAll, set,
 } from './cache';
 
 export default class EmployeeTable {
@@ -10,6 +10,7 @@ export default class EmployeeTable {
     const query = `INSERT INTO employees (id, name, department_id, salary) VALUES ('${employee.id}', '${employee.name}', '${employee.departmentId}', '${employee.salary}')`;
     await db.query(query);
     await set(`EMPLOYEE:${employee.id}`, employee.getJson());
+    await delAll('DEPARTMENT:*');
     return employee;
   }
 
@@ -59,6 +60,7 @@ export default class EmployeeTable {
     const query = `DELETE FROM employees WHERE id = '${id}'`;
     const [result] = await db.query(query);
     await del(`EMPLOYEE:${id}`);
+    await delAll('DEPARTMENT:*');
     if (result.affectedRows === 0) {
       throw new Error('Unable to delete the employee');
     }
@@ -69,6 +71,7 @@ export default class EmployeeTable {
     const query = `UPDATE employees SET name = '${employee.name}', department_id = '${employee.departmentId}', salary = '${employee.salary}' WHERE id = '${employee.id}'`;
     const [result] = await db.query(query);
     await set(`EMPLOYEE:${employee.id}`, employee.getJson());
+    await delAll('DEPARTMENT:*');
     if (result.changedRows === 0) {
       throw new Error('Unable to update the employee');
     }

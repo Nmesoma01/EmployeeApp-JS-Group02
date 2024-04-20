@@ -15,8 +15,6 @@ const createManagerTable = `
 CREATE TABLE IF NOT EXISTS managers (
   id VARCHAR(255) PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  salary INT NOT NULL,
-  bonus INT DEFAULT 0,
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
 );`;
@@ -59,6 +57,18 @@ BEGIN
   WHERE id = OLD.department_id;
 END;`;
 
+const changeMembersOnUpdateTrigger = `
+CREATE TRIGGER IF NOT EXISTS change_department_members AFTER UPDATE ON employees
+FOR EACH ROW
+BEGIN
+  UPDATE departments
+  SET members = members - 1
+  WHERE id = OLD.department_id;
+  UPDATE departments
+  SET members = members + 1
+  WHERE id = NEW.department_id;
+END;`;
+
 export const setupDb = async () => {
   try {
     db.connect();
@@ -68,6 +78,7 @@ export const setupDb = async () => {
     await db.query(employeeView);
     await db.query(incrementMembersTrigger);
     await db.query(decrementMembersTrigger);
+    await db.query(changeMembersOnUpdateTrigger);
     console.log('Database setup completed');
     process.exit();
   } catch (error) {

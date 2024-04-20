@@ -1,25 +1,89 @@
-import Employee from './Employee';
+import bcrypt from 'bcrypt';
 
-export default class Manager extends Employee {
-  #bonus;
+export default class Manager {
+  #name;
 
-  constructor(id, name, department, salary, bonus) {
-    super({
-      id, name, department, salary,
-    });
-    this.#bonus = bonus;
+  #username;
+
+  #password;
+
+  #id;
+
+  constructor({
+    id, name, username, password,
+  }) {
+    if (typeof id !== 'string') {
+      throw new Error('Invalid id');
+    }
+    if (typeof name !== 'string') {
+      throw new Error('Invalid name');
+    }
+    if (typeof username !== 'string') {
+      throw new Error('Invalid username');
+    }
+    if (typeof password !== 'string') {
+      throw new Error('Invalid password');
+    }
+    this.#id = id;
+    this.#name = name;
+    this.#username = username;
+    this.#password = password;
   }
 
-  get bonus() {
-    return this.#bonus;
+  get id() {
+    return this.#id;
   }
 
-  get salary() {
-    // Calculate total salary including bonus
-    return super.salary + this.#bonus;
+  set id(value) {
+    if (typeof value !== 'string') {
+      throw new Error('Invalid id');
+    }
+    this.#id = value;
   }
 
-  calculatePaycheck() {
-    return this.salary;
+  get name() {
+    return this.#name;
+  }
+
+  set name(value) {
+    if (typeof value !== 'string') {
+      throw new Error('Invalid name');
+    }
+    this.#name = value;
+  }
+
+  get username() {
+    return this.#username;
+  }
+
+  set username(value) {
+    if (typeof value !== 'string') {
+      throw new Error('Invalid username');
+    }
+    this.#username = value;
+  }
+
+  get password() {
+    return this.#password;
+  }
+
+  set password(value) {
+    if (typeof value !== 'string') {
+      throw new Error('Invalid password');
+    }
+    this.#password = value;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.#password);
+  }
+
+  getJson() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      username: this.#username,
+      password: this.#password,
+    };
   }
 }

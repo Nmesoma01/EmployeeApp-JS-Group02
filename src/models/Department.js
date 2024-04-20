@@ -5,7 +5,7 @@ export default class Department {
 
   #members;
 
-  constructor({ id, name, members = 0 }) {
+  constructor({ id, name, members }) {
     if (typeof id !== 'string') {
       throw new Error('Invalid id');
     }

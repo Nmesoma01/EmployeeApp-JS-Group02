@@ -30,6 +30,10 @@ export default class EmployeeService {
   }
 
   async delete(id) {
+    const employee = await this.employeeTable.getEmployeeById(id);
+    if (!employee) {
+      throw new Error('Employee ID is required');
+    }
     return this.employeeTable.deleleEmployee(id);
   }
 
