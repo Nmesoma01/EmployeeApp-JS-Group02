@@ -35,7 +35,6 @@ export default class EmployeeService {
 
   async update(employeeData, id) {
     const employee = await this.employeeTable.getEmployeeById(id);
-    console.log(employee);
     if (!employee) {
       throw new Error('Employee ID is required');
     }
@@ -45,7 +44,6 @@ export default class EmployeeService {
     if (!department) {
       throw new Error('Department not found');
     }
-    console.log(department, '=== department', department.name, '=== department name');
     const updateEmployeeInfo = {
       id: employee.id,
       name: employeeData.name || employee.name,
@@ -53,8 +51,6 @@ export default class EmployeeService {
       departmentName: department.name,
       salary: employeeData.salary || employee.salary,
     };
-
-    console.log(updateEmployeeInfo, '=== updateEmployeeInfo');
 
     employee.update(updateEmployeeInfo);
 
