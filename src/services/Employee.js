@@ -2,12 +2,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import Employee from '../models/Employee';
 import EmployeeTable from '../persistance/Employee';
+import DepartmentTable from '../persistance/Department';
 
 export default class EmployeeService {
   employeeTable = null;
 
+  departmentTable = null;
+
   constructor() {
     this.employeeTable = new EmployeeTable();
+    this.departmentTable = new DepartmentTable();
   }
 
   async create(employeeData) {
@@ -31,15 +35,26 @@ export default class EmployeeService {
 
   async update(employeeData, id) {
     const employee = await this.employeeTable.getEmployeeById(id);
+    console.log(employee);
     if (!employee) {
       throw new Error('Employee ID is required');
     }
+
+    const department = await this.departmentTable
+      .getDepartmentById(employeeData.departmentId || employee.departmentId);
+    if (!department) {
+      throw new Error('Department not found');
+    }
+    console.log(department, '=== department', department.name, '=== department name');
     const updateEmployeeInfo = {
       id: employee.id,
       name: employeeData.name || employee.name,
-      department: employeeData.department || employee.department,
+      departmentId: employeeData.departmentId || employee.departmentId,
+      departmentName: department.name,
       salary: employeeData.salary || employee.salary,
     };
+
+    console.log(updateEmployeeInfo, '=== updateEmployeeInfo');
 
     employee.update(updateEmployeeInfo);
 

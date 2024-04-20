@@ -5,7 +5,8 @@
     "dev": "npx babel-node",
     "test": "jest",
     "full-test": "eslint [0-9]*.js && jest",
-    "local": "nodemon --exec npm run dev src/server"
+    "local": "nodemon --exec npm run dev src/server",
+    "db:setup": "npm run dev src/config/dbSetup"
   },
   "dependencies": {
     "@babel/core": "^7.24.4",
