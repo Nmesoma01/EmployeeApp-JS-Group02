@@ -3,12 +3,14 @@ export default class Employee {
 
   #name;
 
-  #department;
-
   #salary;
 
+  #departmentName;
+
+  #departmentId;
+
   constructor({
-    id, name, department, salary,
+    id, name, departmentId, salary, departmentName,
   }) {
     if (typeof id !== 'string') {
       throw new Error('Id need to be a string');
@@ -16,15 +18,19 @@ export default class Employee {
     if (typeof name !== 'string') {
       throw new Error('Name need to be a string');
     }
-    if (typeof department !== 'string') {
-      throw new Error('Department need to be a string');
+    if (typeof departmentId !== 'string') {
+      throw new Error('departmentId need to be a string');
     }
     if (typeof salary !== 'number') {
       throw new Error('Salary need to be a number');
     }
+    if (typeof departmentName !== 'string') {
+      throw new Error('Department name need to be a string');
+    }
     this.#id = id;
     this.#name = name;
-    this.#department = department;
+    this.#departmentName = departmentName;
+    this.#departmentId = departmentId;
     this.#salary = salary;
   }
 
@@ -50,15 +56,26 @@ export default class Employee {
     this.#name = name;
   }
 
-  get department() {
-    return this.#department;
+  get departmentName() {
+    return this.#departmentName;
   }
 
-  set department(department) {
-    if (typeof department !== 'string') {
+  set departmentName(departmentName) {
+    if (typeof departmentName !== 'string') {
       throw new Error('Department need to be a string');
     }
-    this.#department = department;
+    this.#departmentName = departmentName;
+  }
+
+  get departmentId() {
+    return this.#departmentId;
+  }
+
+  set departmentId(departmentId) {
+    if (typeof departmentId !== 'string') {
+      throw new Error('Department need to be a string');
+    }
+    this.#departmentId = departmentId;
   }
 
   get salary() {
@@ -73,7 +90,7 @@ export default class Employee {
   }
 
   update({
-    id, name, department, salary,
+    id, name, departmentName, departmentId, salary,
   }) {
     if (typeof id !== 'string' && id.length > 0) {
       throw new Error('Id need to be a string');
@@ -81,7 +98,10 @@ export default class Employee {
     if (typeof name !== 'string' && name.length > 0) {
       throw new Error('Name need to be a string');
     }
-    if (typeof department !== 'string' && department.length > 0) {
+    if (typeof departmentName !== 'string' && departmentName.length > 0) {
+      throw new Error('Department need to be a string');
+    }
+    if (typeof departmentId !== 'string' && departmentId.length > 0) {
       throw new Error('Department need to be a string');
     }
     if (typeof salary !== 'number' && salary > 0) {
@@ -90,8 +110,11 @@ export default class Employee {
     if (name) {
       this.name = name;
     }
-    if (department) {
-      this.department = department;
+    if (departmentName) {
+      this.departmentName = departmentName;
+    }
+    if (departmentId) {
+      this.departmentId = departmentId;
     }
     if (salary) {
       this.salary = salary;
@@ -102,7 +125,8 @@ export default class Employee {
     return {
       id: this.id,
       name: this.name,
-      department: this.department,
+      departmentName: this.departmentName,
+      departmentId: this.departmentId,
       salary: this.salary,
     };
   }
