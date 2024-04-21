@@ -25,8 +25,22 @@ export default class EmployeeService {
     return this.employeeTable.getEmployeeById(id);
   }
 
-  async getAll() {
-    return this.employeeTable.getEmployees();
+  async getAll(criteria) {
+    let employees = await this.employeeTable.getEmployees();
+    if (criteria && criteria.department) {
+      employees = employees.filter((emp) => emp.department === criteria.department);
+    }
+    if (criteria && criteria.minSalary) {
+      employees = employees.filter((emp) => emp.salary >= criteria.minSalary);
+    }
+    if (criteria && criteria.maxSalary) {
+      employees = employees.filter((emp) => emp.salary <= criteria.maxSalary);
+    }
+
+    if (criteria && criteria.sortBy === 'salary') {
+      employees.sort((a, b) => a.salary - b.salary);
+    }
+    return employees;
   }
 
   async delete(id) {

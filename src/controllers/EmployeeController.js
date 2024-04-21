@@ -21,7 +21,20 @@ const updateEmployeeSchema = Joi.object({
 export default class EmployeeController {
   static async getEmployees(req, res) {
     try {
-      const employees = await employeeService.getAll();
+      const { department, minSalary, maxSalary } = req.query;
+
+      const criteria = {};
+      if (department) {
+        criteria.department = department;
+      }
+      if (minSalary) {
+        criteria.minSalary = parseInt(minSalary, 10);
+      }
+      if (maxSalary) {
+        criteria.maxSalary = parseInt(maxSalary, 10);
+      }
+      const employees = await employeeService.getAll(criteria);
+
       return res.json(employees.map((emp) => emp.getJson()));
     } catch (error) {
       return res.status(500).json({ error: 'Internal server error' });
