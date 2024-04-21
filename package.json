@@ -28,7 +28,7 @@
     "mysql2": "^3.9.4",
     "nodemon": "^3.1.0",
     "prompt-sync": "^4.2.0",
-    "redis": "^2.8.0",
+    "redis": "^4.6.13",
     "uuid": "^9.0.1"
   },
   "name": "employeeapp-js-group02",
