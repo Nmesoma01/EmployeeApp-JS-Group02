@@ -11,7 +11,6 @@
     "@babel/core": "^7.24.4",
     "@babel/eslint-parser": "^7.24.1",
     "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.24.4",
     "babel-jest": "^29.7.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
@@ -24,7 +23,7 @@
     "mysql2": "^3.9.4",
     "nodemon": "^3.1.0",
     "prompt-sync": "^4.2.0",
-    "redis": "^2.8.0",
+    "redis": "^4.6.13",
     "uuid": "^9.0.1"
   },
   "name": "employeeapp-js-group02",
@@ -33,5 +32,9 @@
   "main": "Employee.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.4",
+    "supertest": "^6.3.4"
+  }
 }
