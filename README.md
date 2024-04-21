@@ -1,5 +1,8 @@
-# employee app
+
 # Employee App
+## Frontend
+[employee-frontend](https://github.com/izzeddin62/employee-frontend)
+
 
 ## Overview
 manage company employees
