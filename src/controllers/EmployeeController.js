@@ -100,6 +100,9 @@ export default class EmployeeController {
       await employeeService.delete(id);
       return res.status(204).send();
     } catch (error) {
+      if (error.message === 'Employee not found') {
+        return res.status(404).json({ error: error.message });
+      }
       if (error.message === 'Unable to delete the employee') {
         return res.status(404).json({ error: error.message });
       }

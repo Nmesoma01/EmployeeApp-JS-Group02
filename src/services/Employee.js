@@ -1,8 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { v4 as uuidv4 } from 'uuid';
 import Employee from '../models/Employee';
-import EmployeeTable from '../persistance/Employee';
-import DepartmentTable from '../persistance/Department';
+import { employeeTable, departmentTable } from '../persistance';
 
 export default class EmployeeService {
   employeeTable = null;
@@ -10,8 +9,8 @@ export default class EmployeeService {
   departmentTable = null;
 
   constructor() {
-    this.employeeTable = new EmployeeTable();
-    this.departmentTable = new DepartmentTable();
+    this.employeeTable = employeeTable;
+    this.departmentTable = departmentTable;
   }
 
   async create(employeeData) {
@@ -46,7 +45,7 @@ export default class EmployeeService {
   async delete(id) {
     const employee = await this.employeeTable.getEmployeeById(id);
     if (!employee) {
-      throw new Error('Employee ID is required');
+      throw new Error('Employee not found');
     }
     return this.employeeTable.deleleEmployee(id);
   }
@@ -54,7 +53,7 @@ export default class EmployeeService {
   async update(employeeData, id) {
     const employee = await this.employeeTable.getEmployeeById(id);
     if (!employee) {
-      throw new Error('Employee ID is required');
+      throw new Error('Employee not found');
     }
 
     const department = await this.departmentTable

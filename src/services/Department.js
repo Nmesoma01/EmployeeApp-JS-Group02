@@ -1,17 +1,21 @@
 /* eslint-disable class-methods-use-this */
 import { v4 as uuidv4 } from 'uuid';
-import DepartmentTable from '../persistance/Department';
+import { departmentTable } from '../persistance';
 import Department from '../models/Department';
 
 export default class DepartmentService {
   departmentTable = null;
 
   constructor() {
-    this.departmentTable = new DepartmentTable();
+    this.departmentTable = departmentTable;
   }
 
   async create(departmentData) {
-    const newDepartmentData = { ...departmentData, id: uuidv4() };
+    const newDepartmentData = {
+      ...departmentData,
+      members: departmentData?.members || 0,
+      id: uuidv4(),
+    };
     const newDepartment = new Department(newDepartmentData);
     await this.departmentTable.create(newDepartment);
     return newDepartment;

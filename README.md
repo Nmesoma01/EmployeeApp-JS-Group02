@@ -1,57 +1,40 @@
-# EmployeeApp-JS-GroupXX
-Welcome to our Employee Management App project! This repository contains the code for managing employee data using JavaScript. Our group members are Nmesoma Jeff-Nwankwo, Princess Asare, and Izzedin Ishimwe.
+# employee app
+# Employee App
 
-## Exercise Objectives
-### The main objectives of this exercise are:
+## Overview
+manage company employees
 
-* Practice Object-Oriented Programming principles in JavaScript.
-* Implement encapsulation, inheritance, and polymorphism.
-* Develop a functional EmployeeApp to manage employee data in a group setting.
-  
-# Steps
+## requirements
+- Redis
+- Mysql
+- Node.js
 
-### Setting Up the Repository
+## Installation & setup
+1. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-* Create a new GitHub repository named EmployeeApp-JS-GroupXX.
-* Initialize the repository with a README.md file explaining the exercise objectives, steps, functionalities, and your group members' names.
-* Create a JavaScript file named EmployeeApp.js to house your group's code.
-  
-### Designing the Employee Class
+2. Create a `.env` file from the `.env.example` file and fill it with the actual environment variables.
 
-* Implement encapsulation with private properties: id, name, department, salary, and corresponding getters.
-* Create a constructor function to initialize Employee objects with id, name, department, and salary.
-  
-### Inheritance
+3. Setup the database:
+    ```bash
+    npm run db:setup
+    ```
 
-* Create a Manager subclass inheriting from the Employee class.
-* Add a private property (bonus) to the Manager class.
-* Override the getSalary method in the Manager class to include the bonus.
-  
-### Polymorphism
-
-* Implement a calculatePaycheck method in both Employee and Manager classes.
-* Employee class: return salary.
-* Manager class: calculate total salary with bonus.
-  
-### Implementing the EmployeeApp
-
-* Create an array (employees) to store Employee objects.
-* Implement functions to add new employees and display the employee list.
-* Divide and conquer approach to finding employees by ID.
-
-### Bonus Features
-
-* Enhance the app with functionalities like updating employee information, deleting employees, and filtering/sorting employees.
-* Implement a user interface using HTML, CSS, and JavaScript.
-
-### Committing and Pushing to GitHub
-
-* Regularly commit code changes with meaningful messages reflecting individual and group contributions.
-* Use Git branching and merging strategies to manage different code contributions effectively.
-
-## Group Members
-### Nmesoma Jeff-Nwankwo
-### Princess Asare
-### Izzedin Ishimwe
-
-Feel free to explore the code in this repository.
+## API
+### Manager Endpoints
+- POST `/manager/signup`: Sign up a new manager.
+- POST `/manager/login`: Log in as a manager.
+### Employee Endpoints
+- POST `/employee`: Create a new employee.
+- GET `/employee/:id`: Get an employee by id.
+- GET `/employee`: Get all employees.
+- PUT `/employee/:id`: Update an employee by id.
+- DELETE `/employee/:id`: Delete an employee by id.
+- GET `/employee/:id/report`: Get an employee's report by id.
+- POST `/employee/:id/report`: save report for an employee by id.
+### department Endpoints
+- POST `/departments`: Create a new department.
+- GET `/departments/:id`: Get a department by id.
+- GET `/departments`: Get all departments.

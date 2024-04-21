@@ -5,12 +5,13 @@ describe('employee Class', () => {
     const employee = new Employee({
       id: '1',
       name: 'John Doe',
-      department: 'Engineering',
+      departmentId: '4556',
+      departmentName: 'Engineering',
       salary: 5000,
     });
     expect(employee.id).toBe('1');
     expect(employee.name).toBe('John Doe');
-    expect(employee.department).toBe('Engineering');
+    expect(employee.departmentName).toBe('Engineering');
     expect(employee.salary).toBe(5000);
   });
 });
